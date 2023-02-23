@@ -1,0 +1,71 @@
+# Custom scalar to deal with dates
+scalar DateTime
+
+# 1) order_by vs orderBy?
+# 2) Query for gt/lt than year/milage
+type Query {
+  cars(
+    first: Int
+    after: String
+    orderBy: CarOrderByInput = { createdAt: ASC }
+  ): CarConnection
+  car(id: ID!): Car
+  node(id: ID!): Node
+}
+
+interface Node {
+  id: ID!
+}
+
+type Car implements Node {
+  id: ID!
+  description: String
+  year: Int!
+  milage: Int
+
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CarConnection {
+  edges: [CarEdge!]
+  pageInfo: PageInfo!
+}
+
+type CarEdge {
+  cursor: String!
+  node: Car
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+input OrderByInput {
+  createdAt: OrderDirection
+  id: OrderDirection
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+input AddCarInput {
+  id: String!
+  description: String
+  year: Int!
+  milage: Int
+}
+
+type AddCarMutationResponse {
+  edge: CarEdge
+}
+type Mutation {
+  addCar(car: AddCarInput!): AddCarMutationResponse!
+  # Remove
+  # Update
+}
