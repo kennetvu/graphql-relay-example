@@ -1,8 +1,7 @@
 # Custom scalar to deal with dates
 scalar DateTime
 
-# 1) order_by vs orderBy?
-# 2) Query for gt/lt than year/milage
+# 1) Query for gt/lt than year/milage
 type Query {
   cars(
     first: Int

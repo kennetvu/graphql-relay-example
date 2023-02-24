@@ -13,14 +13,29 @@ Car register application to showcase how we can use modern react-relay with grap
 
 ## Getting Started
 
-First, run the development server:
+First, install packages
+
+```
+yarn
+```
+
+then, run prisma migration
+
+```
+yarn migrate
+```
+
+run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql) to open graphql playground
+
+to generate files run:
+
+```
+yarn generate
+```
