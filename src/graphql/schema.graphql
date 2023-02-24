@@ -7,7 +7,7 @@ type Query {
   cars(
     first: Int
     after: String
-    orderBy: CarOrderByInput = { createdAt: ASC }
+    orderBy: OrderByInput = { createdAt: ASC }
   ): CarConnection
   car(id: ID!): Car
   node(id: ID!): Node
