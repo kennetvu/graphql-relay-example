@@ -47,7 +47,7 @@ export type CarConnection = {
 export type CarEdge = {
   __typename?: 'CarEdge';
   cursor: Scalars['String'];
-  node?: Maybe<Car>;
+  node: Car;
 };
 
 export type Mutation = {
@@ -235,7 +235,7 @@ export type CarConnectionResolvers<ContextType = Context, ParentType extends Res
 
 export type CarEdgeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CarEdge'] = ResolversParentTypes['CarEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Car']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Car'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

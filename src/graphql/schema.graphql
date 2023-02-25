@@ -33,7 +33,7 @@ type CarConnection {
 
 type CarEdge {
   cursor: String!
-  node: Car
+  node: Car!
 }
 
 type PageInfo {

@@ -36,8 +36,6 @@ const argsToPrismaOrderBy = (
 const resolvers: Resolvers = {
   Query: {
     cars: async (_, args, context) => {
-      console.log('context', Object.keys(context));
-      // const cars = await findParkings();
       const cars = await prisma.car.findMany({
         orderBy: argsToPrismaOrderBy(args.orderBy),
       });
