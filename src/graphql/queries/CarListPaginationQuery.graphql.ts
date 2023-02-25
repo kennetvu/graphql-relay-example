@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<626121a87cc9682ce6dd39df559e6a29>>
+ * @generated SignedSource<<01ee6ff0b45f7af8426cc8b3fc668ca7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,9 +10,15 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type OrderDirection = "ASC" | "DESC" | "%future added value";
+export type OrderByInput = {
+  createdAt?: OrderDirection | null;
+  id?: OrderDirection | null;
+};
 export type CarListPaginationQuery$variables = {
   after?: string | null;
   first?: number | null;
+  orderBy?: OrderByInput | null;
 };
 export type CarListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"CarListFragment">;
@@ -33,6 +39,13 @@ var v0 = [
     "defaultValue": 0,
     "kind": "LocalArgument",
     "name": "first"
+  },
+  {
+    "defaultValue": {
+      "createdAt": "ASC"
+    },
+    "kind": "LocalArgument",
+    "name": "orderBy"
   }
 ],
 v1 = [
@@ -45,6 +58,11 @@ v1 = [
     "kind": "Variable",
     "name": "first",
     "variableName": "first"
+  },
+  {
+    "kind": "Variable",
+    "name": "orderBy",
+    "variableName": "orderBy"
   }
 ];
 return {
@@ -125,6 +143,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "createdAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
                   }
@@ -172,7 +197,7 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "filters": null,
+        "filters": [],
         "handle": "connection",
         "key": "CarListFragment_cars",
         "kind": "LinkedHandle",
@@ -181,16 +206,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d43c7a71310c057e7681d9c1b6a21211",
+    "cacheID": "152d9cdf32bb2daadea385b50d2c85b9",
     "id": null,
     "metadata": {},
     "name": "CarListPaginationQuery",
     "operationKind": "query",
-    "text": "query CarListPaginationQuery(\n  $after: String = \"\"\n  $first: Int = 0\n) {\n  ...CarListFragment_2HEEH6\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n}\n\nfragment CarListFragment_2HEEH6 on Query {\n  cars(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query CarListPaginationQuery(\n  $after: String = \"\"\n  $first: Int = 0\n  $orderBy: OrderByInput = {createdAt: ASC}\n) {\n  ...CarListFragment_2IJuIk\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n  createdAt\n}\n\nfragment CarListFragment_2IJuIk on Query {\n  cars(first: $first, after: $after, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f7e36e1ce8d48dd160d8b01f799effdb";
+(node as any).hash = "a35ceb3eeaa82060f693706da49b38e2";
 
 export default node;

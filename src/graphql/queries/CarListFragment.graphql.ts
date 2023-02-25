@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<032d56beaaa1beb1f180649f3cf3ad0d>>
+ * @generated SignedSource<<f22a9169bf2a90e1496d16023321d59d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,6 +41,13 @@ return {
       "defaultValue": 0,
       "kind": "LocalArgument",
       "name": "first"
+    },
+    {
+      "defaultValue": {
+        "createdAt": "ASC"
+      },
+      "kind": "LocalArgument",
+      "name": "orderBy"
     }
   ],
   "kind": "Fragment",
@@ -158,6 +165,6 @@ return {
 };
 })();
 
-(node as any).hash = "f7e36e1ce8d48dd160d8b01f799effdb";
+(node as any).hash = "a35ceb3eeaa82060f693706da49b38e2";
 
 export default node;

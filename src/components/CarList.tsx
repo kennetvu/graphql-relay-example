@@ -1,5 +1,6 @@
 import { CarListFragment$key } from '@/graphql/queries/CarListFragment.graphql';
 import { Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { graphql, useRefetchableFragment } from 'react-relay';
 import Car from './Car';
 
@@ -8,10 +9,11 @@ export const CarListFragmenet = graphql`
   @argumentDefinitions(
     first: { type: "Int", defaultValue: 0 }
     after: { type: "String", defaultValue: "" }
+    orderBy: { type: "OrderByInput", defaultValue: { createdAt: ASC } }
   )
   @refetchable(queryName: "CarListPaginationQuery") {
-    cars(first: $first, after: $after)
-      @connection(key: "CarListFragment_cars") {
+    cars(first: $first, after: $after, orderBy: $orderBy)
+      @connection(key: "CarListFragment_cars", filters: []) {
       edges {
         node {
           id
@@ -24,17 +26,24 @@ export const CarListFragmenet = graphql`
 
 type CarListProps = {
   data: CarListFragment$key;
+  orderField: 'createdAt' | 'id';
+  orderDirection: 'ASC' | 'DESC';
 };
 
 function CarList(props: CarListProps) {
   const [data, refetch] = useRefetchableFragment(CarListFragmenet, props.data);
+  useEffect(() => {
+    refetch({
+      orderBy: { [props.orderField]: props.orderDirection },
+    });
+  }, [refetch, props.orderField, props.orderDirection]);
   const cars = data.cars?.edges || [];
   return (
-    <Flex gap={2}>
+    <>
       {cars?.map((edge) => (
         <Car key={edge.node.id} car={edge.node} />
       ))}
-    </Flex>
+    </>
   );
 }
 

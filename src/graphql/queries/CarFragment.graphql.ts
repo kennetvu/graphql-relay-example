@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<187400e1671ae86e9e57c6d9aad5354f>>
+ * @generated SignedSource<<914c5a92c3e7c91e420526f20784de4e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CarFragment$data = {
+  readonly createdAt: any | null;
   readonly description: string | null;
   readonly id: string;
   readonly milage: number | null;
@@ -55,12 +56,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "milage",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "createdAt",
+      "storageKey": null
     }
   ],
   "type": "Car",
   "abstractKey": null
 };
 
-(node as any).hash = "3ebbf7139dd63d259fd229ae56f41f01";
+(node as any).hash = "48798909c0e907c4dcc779ed781e8c4b";
 
 export default node;

@@ -18,6 +18,7 @@ export const CarFragment = graphql`
     description
     year
     milage
+    createdAt
   }
 `;
 
@@ -35,6 +36,7 @@ function Car(props: CarProps) {
           <Text>ID: {data.id}</Text>
           <Text>Year: {data.year}</Text>
           {data.milage ? <Text>Milage(km): {data.milage}</Text> : null}
+          <Text>Created at: {data.createdAt}</Text>
         </Stack>
       </CardBody>
       <Divider />

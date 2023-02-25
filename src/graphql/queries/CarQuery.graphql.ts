@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f0078db7b0fa1b9aca834589011dc6ac>>
+ * @generated SignedSource<<0f3e589bf8a8cb1518c33372f946a2e4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,6 +30,13 @@ var v0 = [
     "kind": "Literal",
     "name": "first",
     "value": 0
+  },
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": {
+      "createdAt": "ASC"
+    }
   }
 ];
 return {
@@ -110,6 +117,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "createdAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
                     "storageKey": null
                   }
@@ -152,12 +166,12 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "cars(after:\"\",first:0)"
+        "storageKey": "cars(after:\"\",first:0,orderBy:{\"createdAt\":\"ASC\"})"
       },
       {
         "alias": null,
         "args": (v0/*: any*/),
-        "filters": null,
+        "filters": [],
         "handle": "connection",
         "key": "CarListFragment_cars",
         "kind": "LinkedHandle",
@@ -166,12 +180,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "de09e910770899deeacdef8f0ebb904a",
+    "cacheID": "397afaeaee7ebfdce99d9b6e08deeb6f",
     "id": null,
     "metadata": {},
     "name": "CarQuery",
     "operationKind": "query",
-    "text": "query CarQuery {\n  ...CarListFragment\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n}\n\nfragment CarListFragment on Query {\n  cars(first: 0, after: \"\") {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query CarQuery {\n  ...CarListFragment\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n  createdAt\n}\n\nfragment CarListFragment on Query {\n  cars(first: 0, after: \"\", orderBy: {createdAt: ASC}) {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
