@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<01ee6ff0b45f7af8426cc8b3fc668ca7>>
+ * @generated SignedSource<<6c4ade3565b6119bb67f4e30a20c5580>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -197,7 +197,9 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "filters": [],
+        "filters": [
+          "orderBy"
+        ],
         "handle": "connection",
         "key": "CarListFragment_cars",
         "kind": "LinkedHandle",
@@ -216,6 +218,6 @@ return {
 };
 })();
 
-(node as any).hash = "a35ceb3eeaa82060f693706da49b38e2";
+(node as any).hash = "161119f1a4d13512e928fdfa3483887b";
 
 export default node;

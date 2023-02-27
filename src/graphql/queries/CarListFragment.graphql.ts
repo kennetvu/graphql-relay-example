@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f22a9169bf2a90e1496d16023321d59d>>
+ * @generated SignedSource<<b7cff080ed89e3e62d8cd15cb5e98297>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -77,7 +77,13 @@ return {
   "selections": [
     {
       "alias": "cars",
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "orderBy",
+          "variableName": "orderBy"
+        }
+      ],
       "concreteType": "CarConnection",
       "kind": "LinkedField",
       "name": "__CarListFragment_cars_connection",
@@ -165,6 +171,6 @@ return {
 };
 })();
 
-(node as any).hash = "a35ceb3eeaa82060f693706da49b38e2";
+(node as any).hash = "161119f1a4d13512e928fdfa3483887b";
 
 export default node;

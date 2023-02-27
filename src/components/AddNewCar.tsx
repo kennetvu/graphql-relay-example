@@ -52,17 +52,25 @@ function AddNewCar() {
     // https://relay.dev/docs/guided-tour/list-data/updating-connections/#connection-identity-with-filters
     // Since this fragment is on Query-level, we need to reference root
     // second param must match @connection-key
-    // Arguments must match current view.
-    // if we exlude them from connection, we dont need to deal with filters.
+    // Arguments in third parameter must match with current view?
     const connectionID = ConnectionHandler.getConnectionID(
       'root',
-      'CarListFragment_cars'
-      // { orderBy: { createdAt: 'ASC' } }
+      'CarListFragment_cars',
+      { orderBy: { createdAt: 'ASC' } }
     );
+
+    // if orderBy:id:'asc' is not in store, we will get a warning.
+    // const connectionID2 = ConnectionHandler.getConnectionID(
+    //   'root',
+    //   'CarListFragment_cars',
+    //   { orderBy: { id: 'ASC' } }
+    // );
+
     commitMutation({
       variables: {
         car: input,
         connections: [connectionID],
+        // connections: [connectionID, connectionID2],
       },
       onCompleted: () => {
         toast({

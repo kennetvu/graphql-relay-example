@@ -1,6 +1,5 @@
 import { CarListFragment$key } from '@/graphql/queries/CarListFragment.graphql';
-import { Flex } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { graphql, useRefetchableFragment } from 'react-relay';
 import Car from './Car';
 
@@ -13,7 +12,7 @@ export const CarListFragmenet = graphql`
   )
   @refetchable(queryName: "CarListPaginationQuery") {
     cars(first: $first, after: $after, orderBy: $orderBy)
-      @connection(key: "CarListFragment_cars", filters: []) {
+      @connection(key: "CarListFragment_cars") {
       edges {
         node {
           id

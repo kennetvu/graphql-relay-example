@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0f3e589bf8a8cb1518c33372f946a2e4>>
+ * @generated SignedSource<<122ed2597c183b07a8bf00325f3656aa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -171,7 +171,9 @@ return {
       {
         "alias": null,
         "args": (v0/*: any*/),
-        "filters": [],
+        "filters": [
+          "orderBy"
+        ],
         "handle": "connection",
         "key": "CarListFragment_cars",
         "kind": "LinkedHandle",

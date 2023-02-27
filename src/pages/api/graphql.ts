@@ -4,6 +4,7 @@ import {
   Resolvers,
   InputMaybe,
   OrderByInput,
+  PageInfo,
 } from '@/graphql/__generated__/types';
 import { dateScalar } from '@/graphql/dateScalar';
 import { typeDefs } from '@/graphql/__generated__/typedefs';
@@ -42,7 +43,9 @@ const resolvers: Resolvers = {
 
       const edges = cars.map((c) => ({ cursor: c.id, node: c }));
       // we dont support pagination yet
-      const pageInfo = {
+      const pageInfo: PageInfo = {
+        startCursor: edges[0].cursor,
+        endCursor: edges[edges.length - 1].cursor,
         hasNextPage: false,
         hasPreviousPage: false,
       };
