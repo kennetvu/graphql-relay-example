@@ -37,20 +37,34 @@ const argsToPrismaOrderBy = (
 const resolvers: Resolvers = {
   Query: {
     cars: async (_, args, context) => {
+      console.log(args);
+      const first = args.first || 2;
+      const cursor =
+        args.after === null || args.after === '' ? undefined : args.after;
+
       const cars = await prisma.car.findMany({
         orderBy: argsToPrismaOrderBy(args.orderBy),
+        take: first,
+        ...(cursor && {
+          skip: 1,
+          cursor: {
+            id: cursor,
+          },
+        }),
       });
+      const countCars = await prisma.car.count();
 
       const edges = cars.map((c) => ({ cursor: c.id, node: c }));
       // we dont support pagination yet
       const pageInfo: PageInfo = {
         startCursor: edges[0].cursor,
         endCursor: edges[edges.length - 1].cursor,
-        hasNextPage: false,
+        hasNextPage: true,
         hasPreviousPage: false,
       };
       return {
         edges,
+        count: countCars,
         pageInfo,
       };
     },

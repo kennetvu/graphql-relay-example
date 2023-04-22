@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<122ed2597c183b07a8bf00325f3656aa>>
+ * @generated SignedSource<<21f66d9e027cd9b73269770bbb2d60c8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CarQuery$variables = {};
 export type CarQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"CarListFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"CarListContainerFragment">;
 };
 export type CarQuery = {
   response: CarQuery$data;
@@ -29,7 +29,7 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 0
+    "value": 2
   },
   {
     "kind": "Literal",
@@ -49,7 +49,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CarListFragment"
+        "name": "CarListContainerFragment"
       }
     ],
     "type": "Query",
@@ -143,6 +143,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "count",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "PageInfo",
             "kind": "LinkedField",
             "name": "pageInfo",
@@ -166,7 +173,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "cars(after:\"\",first:0,orderBy:{\"createdAt\":\"ASC\"})"
+        "storageKey": "cars(after:\"\",first:2,orderBy:{\"createdAt\":\"ASC\"})"
       },
       {
         "alias": null,
@@ -182,16 +189,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "397afaeaee7ebfdce99d9b6e08deeb6f",
+    "cacheID": "8884519ecdef4444ab79ee80e994292a",
     "id": null,
     "metadata": {},
     "name": "CarQuery",
     "operationKind": "query",
-    "text": "query CarQuery {\n  ...CarListFragment\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n  createdAt\n}\n\nfragment CarListFragment on Query {\n  cars(first: 0, after: \"\", orderBy: {createdAt: ASC}) {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query CarQuery {\n  ...CarListContainerFragment\n}\n\nfragment CarFragment on Car {\n  id\n  description\n  year\n  milage\n  createdAt\n}\n\nfragment CarListContainerFragment on Query {\n  ...CarListFragment_cyvQ\n}\n\nfragment CarListFragment_cyvQ on Query {\n  cars(first: 2, after: \"\", orderBy: {createdAt: ASC}) {\n    edges {\n      node {\n        id\n        ...CarFragment\n        __typename\n      }\n      cursor\n    }\n    count\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2d8022fa8089b87cf2a3a487b384c496";
+(node as any).hash = "8d127d00aa4f17da5447708d6326b937";
 
 export default node;

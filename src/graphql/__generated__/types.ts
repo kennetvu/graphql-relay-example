@@ -40,6 +40,7 @@ export type Car = Node & {
 
 export type CarConnection = {
   __typename?: 'CarConnection';
+  count: Scalars['Int'];
   edges?: Maybe<Array<CarEdge>>;
   pageInfo: PageInfo;
 };
@@ -228,6 +229,7 @@ export type CarResolvers<ContextType = Context, ParentType extends ResolversPare
 };
 
 export type CarConnectionResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CarConnection'] = ResolversParentTypes['CarConnection']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   edges?: Resolver<Maybe<Array<ResolversTypes['CarEdge']>>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

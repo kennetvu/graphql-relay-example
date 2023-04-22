@@ -29,6 +29,7 @@ type Car implements Node {
 type CarConnection {
   edges: [CarEdge!]
   pageInfo: PageInfo!
+  count: Int!
 }
 
 type CarEdge {

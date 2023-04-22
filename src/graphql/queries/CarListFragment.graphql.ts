@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b7cff080ed89e3e62d8cd15cb5e98297>>
+ * @generated SignedSource<<40bdd1ae3c44fd87a2a51e820c3a1e0b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CarListFragment$data = {
   readonly cars: {
+    readonly count: number;
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
@@ -38,14 +39,12 @@ return {
       "name": "after"
     },
     {
-      "defaultValue": 0,
+      "defaultValue": 2,
       "kind": "LocalArgument",
       "name": "first"
     },
     {
-      "defaultValue": {
-        "createdAt": "ASC"
-      },
+      "defaultValue": null,
       "kind": "LocalArgument",
       "name": "orderBy"
     }
@@ -140,6 +139,13 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "count",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "PageInfo",
           "kind": "LinkedField",
           "name": "pageInfo",
@@ -171,6 +177,6 @@ return {
 };
 })();
 
-(node as any).hash = "161119f1a4d13512e928fdfa3483887b";
+(node as any).hash = "5534f02d7fa26c8f46a92b1ca822e3b5";
 
 export default node;

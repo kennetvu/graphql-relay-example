@@ -10,46 +10,26 @@ import {
 import { useState } from 'react';
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import AddNewCar from './AddNewCar';
-import CarList from './CarList';
+import CarListContainer from './CarListContainer';
 /**
  * Add this if you want to use variables on query level
  * query CarQuery($orderBy: OrderByInput) {
  */
 export const Query = graphql`
   query CarQuery {
-    ...CarListFragment
+    ...CarListContainerFragment
   }
 `;
 
-type Order = 'ASC' | 'DESC';
-type Sort = { value: 'createdAt' | 'id'; label: string };
-const sortOptions: Sort[] = [
-  {
-    value: 'createdAt',
-    label: 'Created at',
-  },
-  {
-    value: 'id',
-    label: 'ID',
-  },
-];
-
-const validateValue = (v: string): v is 'id' | 'createdAt' =>
-  v === 'id' || v === 'createdAt';
-
 const variables = {};
 function CarQueryComponent() {
-  const [orderDirection, setOrderDirection] = useState<Order>('ASC');
-  const [selectedSort, setSelectedSort] = useState<'createdAt' | 'id'>(
-    sortOptions[0].value
-  );
   const data = useLazyLoadQuery<CarQuery>(Query, variables);
   return (
     <Box>
       <Box>
         <Heading>Car register app</Heading>
       </Box>
-      <Flex pb={4} maxW={500}>
+      {/* <Flex pb={4} maxW={500}>
         <Select
           value={selectedSort}
           onChange={(e) => {
@@ -71,18 +51,9 @@ function CarQueryComponent() {
         >
           {orderDirection}
         </Button>
-      </Flex>
-      <SimpleGrid
-        spacing={4}
-        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-      >
-        <AddNewCar />
-        <CarList
-          data={data}
-          orderDirection={orderDirection}
-          orderField={selectedSort}
-        />
-      </SimpleGrid>
+      </Flex> */}
+
+      <CarListContainer data={data} />
     </Box>
   );
 }
