@@ -9,7 +9,7 @@ Car register application to showcase how we can use modern react-relay with grap
 - Relay(Graphql client)
 - Prisma(ORM)
 - SQLite(DB)
-- Nextauth?
+- Preact-signals(Global state management)
 
 ## Getting Started
 

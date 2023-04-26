@@ -1,12 +1,14 @@
 import { CarListFragment$key } from '@/graphql/queries/CarListFragment.graphql';
-import {
-  graphql,
-  usePaginationFragment,
-  useRefetchableFragment,
-} from 'react-relay';
+import { Button, Flex } from '@chakra-ui/react';
+import { graphql, usePaginationFragment } from 'react-relay';
+import AddNewCar from './AddNewCar';
 import Car from './Car';
 
+// Filters are autmatically sat to arguments specified in field-query, first and after is automagically omitted.
+// filters: ["orderBy"] or not specified => client:root:__CarListFragment_cars_connection(orderBy:{"createdAt":"ASC"})
+// filters:[] =key> client:root:__CarListFragment_cars_connection
 // filters https://relay.dev/docs/guided-tour/list-data/updating-connections/#connection-identity-with-filters
+
 export const CarListFragmenet = graphql`
   fragment CarListFragment on Query
   @argumentDefinitions(
@@ -33,21 +35,40 @@ type CarListProps = {
 };
 
 function CarList(props: CarListProps) {
-  const { data, loadNext, hasNext } = usePaginationFragment(
+  const { data, loadNext, hasNext, refetch } = usePaginationFragment(
     CarListFragmenet,
     props.data
   );
   const cars = data.cars?.edges || [];
   return (
     <>
-      <button
-        disabled={!hasNext}
-        onClick={() => {
-          loadNext(2);
-        }}
-      >
-        load more
-      </button>
+      <Flex direction={'column'} justifyContent={'space-evenly'}>
+        <Button
+          colorScheme={'blue'}
+          height={'50%'}
+          disabled={!hasNext}
+          onClick={() => {
+            loadNext(2);
+          }}
+        >
+          load more
+        </Button>
+        <Button
+          height={'50%'}
+          colorScheme="linkedin"
+          disabled={!hasNext}
+          onClick={() => {
+            // Force refetch to see how cache/network requests behave
+            // will not trigger a refetch if we already have data.
+            refetch({
+              orderBy: { id: 'DESC' },
+            });
+          }}
+        >
+          refetch
+        </Button>
+      </Flex>
+      <AddNewCar />
       {cars?.map((edge) => (
         <Car key={edge.node.id} car={edge.node} />
       ))}

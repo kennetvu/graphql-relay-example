@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { CarListContainerFragment$key } from '@/graphql/queries/CarListContainerFragment.graphql';
+import { SimpleGrid } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { graphql, useRefetchableFragment } from 'react-relay';
 import CarList from './CarList';
-import { CarListContainerFragment$key } from '@/graphql/queries/CarListContainerFragment.graphql';
-import { Box, Button, Flex, Select, SimpleGrid } from '@chakra-ui/react';
-import AddNewCar from './AddNewCar';
+import { OrderDirection, OrderField, orderState } from './OrderByState';
 
 export const CarListContainerFragmenet = graphql`
   fragment CarListContainerFragment on Query
@@ -14,72 +14,51 @@ export const CarListContainerFragmenet = graphql`
     ...CarListFragment @arguments(orderBy: $orderBy)
   }
 `;
-
-type Order = 'ASC' | 'DESC';
-type Sort = { value: 'createdAt' | 'id'; label: string };
-const sortOptions: Sort[] = [
-  {
-    value: 'createdAt',
-    label: 'Created at',
-  },
-  {
-    value: 'id',
-    label: 'ID',
-  },
-];
-
-const validateValue = (v: string): v is 'id' | 'createdAt' =>
-  v === 'id' || v === 'createdAt';
-
 type CarListProps = {
   data: CarListContainerFragment$key;
 };
+type CarListInnerProps = CarListProps & {
+  field: OrderField;
+  direction: OrderDirection;
+};
 
-function CarListContainer(props: CarListProps) {
-  const [orderDirection, setOrderDirection] = useState<Order>('ASC');
-  const [selectedSort, setSelectedSort] = useState<'createdAt' | 'id'>(
-    sortOptions[0].value
-  );
+function CarListContainerInner({
+  field,
+  direction,
+  ...props
+}: CarListInnerProps) {
   const [data, refetch] = useRefetchableFragment(
     CarListContainerFragmenet,
     props.data
   );
+
+  useEffect(() => {
+    // Does not refetch when default arugments and main query match - check network
+    refetch({
+      orderBy: { [field]: direction },
+    });
+  }, [field, direction, refetch]);
   return (
     <>
-      <Flex pb={4} maxW={500}>
-        <Select
-          value={selectedSort}
-          onChange={(e) => {
-            if (validateValue(e.target.value)) {
-              setSelectedSort(e.target.value);
-              refetch({ orderBy: { [e.target.value]: orderDirection } });
-            }
-          }}
-        >
-          {sortOptions.map((sort) => (
-            <option key={sort.value} value={sort.value}>
-              {sort.label}
-            </option>
-          ))}
-        </Select>
-        <Button
-          onClick={() => {
-            const direction = orderDirection === 'ASC' ? 'DESC' : 'ASC';
-            setOrderDirection(direction);
-            refetch({ orderBy: { [selectedSort]: direction } });
-          }}
-        >
-          {orderDirection}
-        </Button>
-      </Flex>
       <SimpleGrid
         spacing={4}
         templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
       >
-        <AddNewCar />
         <CarList data={data} />
       </SimpleGrid>
     </>
+  );
+}
+
+// Trying a new pattern to abstract signal state out of component.
+function CarListContainer(props: CarListProps) {
+  const { field, direction } = orderState.value;
+  return (
+    <CarListContainerInner
+      data={props.data}
+      field={field}
+      direction={direction}
+    />
   );
 }
 
